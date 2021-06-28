@@ -14,7 +14,7 @@
         <li><a href="/webtech/creators2.php">Creators</a></li>
         <li><a href="/webtech/favourites.php/">My Favorites</a></li>
         <li> <a href="/webtech/logout.php">Logout</a></li>
-        <li> <a href="#">View Profile</a></li>
+        <li> <a href="/webtech/userprofile.php">View Profile</a></li>
 
     </ul>
 </nav>

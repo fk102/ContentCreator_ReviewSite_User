@@ -55,6 +55,7 @@
         $result1 = write($data_encode);
         if ($result1) {
             $successfulMessage = "Successfully saved.";
+            header("location:/webtech/creators2.php");
         } else {
             $errorMessage = "Error while saving.";
         }

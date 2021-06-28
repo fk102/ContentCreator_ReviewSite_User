@@ -159,9 +159,8 @@
         <input type="submit" value="Save Changes">
     </form>
 
-    <span style="color: green;"><?php echo $successfulMessage; ?></span>
-    <span style="color: red;"><?php echo $errorMessage; ?></span>
-    <a href="/webtech/login.php">Login</a>
+
+    <a href="/webtech/userprofile.php">Back</a><br>
 
     <?php
 
