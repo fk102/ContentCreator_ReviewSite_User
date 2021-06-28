@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Pewdiepie",
+        "dob": "1989-10-24",
+        "channelLink": "https:\/\/youtube.com\/pewdiepie",
+        "rating": "five, four, five, four",
+        "review": "Great, Really good with some boring content, Pog, I miss minecraft"
+    },
+    {
+        "name": "KSI",
+        "dob": "2021-06-02",
+        "channelLink": "https:\/\/youtube.com\/ksi",
+        "rating": "five, five, five",
+        "review": "Test review, Good, Good"
+    },
+    {
+        "name": "MrBeast",
+        "dob": "1999-06-17",
+        "channelLink": "https:\/\/youtube.com\/mrbeast6000",
+        "rating": "four, five, five",
+        "review": "fun but a little repetitive, Amazing, Amazing"
+    },
+    {
+        "name": "Sykkuno",
+        "dob": "1990-06-16",
+        "channelLink": "https:\/\/twitch.tv\/sykkuno",
+        "rating": "five",
+        "review": "Really good"
+    },
+    {
+        "name": "LinusTechTips",
+        "dob": "2021-06-03",
+        "channelLink": "https:\/\/youtube.com\/linustechtips",
+        "rating": "five",
+        "review": "Great"
+    }
+]
