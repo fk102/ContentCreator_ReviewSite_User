@@ -7,10 +7,11 @@
 </head>
 
 <body>
+    <?php require 'nav.html' ?>
     <h1> Add Creator </h1>
 
     <?php
-    define("filepath", "creators.json");
+
 
     $Name = $rating = $channelLink = $rating = $review = "";
     $NameErr = $ratingErr = $channelErr = $ratingErr = $dobErr = "";
@@ -35,39 +36,18 @@
             $Name = test_input($Name);
             $review = test_input($review);
             $rating = test_input($rating);
-
-            $fileData = read();
-
-            $data = json_decode($fileData, true);
-
-            foreach ($data as  $id => $userdata) {
-                if ($Name == $data[$id]["name"]) {
-
-                    $data[$id]['rating'] = $data[$id]['rating'] . ", " . $rating;
-                    $data[$id]['review'] = $data[$id]['review'] . ", " . $review;
-                }
-            }
         }
 
-        $data_encode = json_encode($data, JSON_PRETTY_PRINT);
-        write("");
-        $result1 = write($data_encode);
+        require '../model/dbCreatorReview.php';
+        $result1 = addReview($Name, $rating, $review);
         if ($result1) {
             $successfulMessage = "Successfully saved.";
-            header("Location:/webtech/creators2.php");
+            header("Location:./creators2.php");
         } else {
             $errorMessage = "Error while saving.";
         }
     }
 
-
-    function write($content)
-    {
-        $resource = fopen(filepath, "w");
-        $fw = fwrite($resource, $content . "\n");
-        fclose($resource);
-        return $fw;
-    }
 
     function test_input($data)
     {
@@ -108,21 +88,6 @@
 
     <span style="color: green;"><?php echo $successfulMessage; ?></span>
     <span style="color: red;"><?php echo $errorMessage; ?></span>
-
-    <?php
-
-    function read()
-    {
-        $resource = fopen(filepath, "r");
-        $fz = filesize(filepath);
-        $fr = "";
-        if ($fz > 0) {
-            $fr = fread($resource, $fz);
-        }
-        fclose($resource);
-        return $fr;
-    }
-    ?>
 
 </body>
 

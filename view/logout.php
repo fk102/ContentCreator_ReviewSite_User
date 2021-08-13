@@ -16,7 +16,7 @@ session_destroy();
 
 
 
-header("Location: homepage.html"); ?>
+header("Location: ../index.html"); ?>
 
 <body>
 

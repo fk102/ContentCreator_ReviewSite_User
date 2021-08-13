@@ -6,11 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGIN</title>
+    <?php require '../model/dbLogin.php' ?>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
-<h1>LOG IN</h1>
+
 
 <?php
-define("filepath", "data.json");
+
 
 $username = $password = "";
 $usernameErr = $passwordErr = "";
@@ -39,17 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $userName = test_input($userName);
         $passWord = test_input($passWord);
 
-
-        $fileData = read();
-
-        $data = json_decode($fileData, true);
-
-        foreach ($data as  $id => $userdata) {
-
-            if ($userName == $data[$id]["username"] && $passWord == $data[$id]["password"]) {
-                $found = true;
-                break;
-            }
+        $result1 = login($userName, $passWord);
+        if ($result1) {
+            $found = true;
         }
         if ($found) {
             $successfulMessage = "Login Success";
@@ -58,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             }
             session_start();
             $_SESSION['uid'] = $userName;
-            header("location:userhomepage.html");
+            header("location:userhomepage.php");
         } else {
             $errorMessage = "Invalid Credentials";
         }
@@ -75,7 +71,13 @@ function test_input($data)
 ?>
 
 <body>
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+    <nav>
+        <h1 id="logo">Y/TTV</h1>
+        <ul>
+            <li><a href="./userhomepage.php">Home</a></li>
+        </ul>
+    </nav>
+    <form action=" <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
         <fieldset>
             <legend>LOG IN</legend>
             <label for="username">Username:</label>
@@ -87,7 +89,7 @@ function test_input($data)
 
 
             <input type="checkbox" name="rememberme" id="rememberme">
-            <label for="rememberme">Remember Me:</label>
+            <label for="rememberme">Remember Me</label>
 
             <br><br>
         </fieldset>

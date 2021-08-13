@@ -4,31 +4,42 @@
 <head>
     <meta charset="utf-8">
     <title>Add creators</title>
+
+    <?php
+    require '../model/dbCreatorInsert.php';
+    if (isset($_COOKIE['uid'])) {
+        include 'nav.html';
+    } else {
+        include 'newNav.html';
+    } ?>
 </head>
 
 <body>
-    <h1> Add Creator </h1>
+    <link rel="stylesheet" href="./view/css/style.css">
+    <h1> Update Creator </h1>
 
     <?php
     define("filepath", "creators.json");
 
-    $Name = $channelLink = $dob = "";
+    $Name = $channelLink = $dob = $imgLink = $creator = "";
     $NameErr = $channelErr = $dobErr = "";
     $successfulMessage = $errorMessage = "";
     $flag = false;
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
+
+        $creator = $_COOKIE['creator'];
         $Name = $_POST['name'];
         $channelLink = $_POST['channelLink'];
         $dob = $_POST['dob'];
-
+        $imgLink = $_POST['imgLink'];
 
         if (empty($channelLink)) {
             $channelErr = "enter a channelLink";
             $flag = true;
         }
         if (empty($dob)) {
-            $dob = "Enter Valid date";
+            $dobErr = "Enter Valid date";
             $flag = true;
         }
 
@@ -36,26 +47,13 @@
             $Name = test_input($Name);
             $dob = test_input($dob);
             $channelLink = test_input($channelLink);
-
-            $fileData = read();
-
-            $data = json_decode($fileData, true);
-
-            foreach ($data as  $id => $userdata) {
-                if ($Name == $data[$id]["name"]) {
-
-                    $data[$id]['dob'] = $dob;
-                    $data[$id]['channelLink'] = $channelLink;
-                }
-            }
+            $imgLink = test_input($imgLink);
         }
 
-        $data_encode = json_encode($data, JSON_PRETTY_PRINT);
-        write("");
-        $result1 = write($data_encode);
-        if ($result1) {
+        $result2 = update($Name, $dob, $channelLink, $imgLink, $creator);
+        if ($result2) {
             $successfulMessage = "Successfully saved.";
-            header("location:/webtech/creators2.php");
+            header("Location:./creators2.php");
         } else {
             $errorMessage = "Error while saving.";
         }
@@ -80,12 +78,12 @@
 
     ?>
 
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+    <form action=" <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
         <fieldset>
-            <legend>Update Info:</legend>
+            <legend>New Info</legend>
             <label for="name">Name:</label>
             <input type="text" id="name" name="name">
-            <span style="color: red;"><?php echo $NameErr; ?></span><br><br>
+            <span style=" color: red;"><?php echo $NameErr; ?></span><br><br>
 
             <label for="dob">Date of Birth:</label>
             <input type="date" id="dob" name="dob">
@@ -94,6 +92,11 @@
             <label for="channelLink">Channel Link:</label>
             <input type="url" id="channelLink" name="channelLink">
             <span style="color: red;"><?php echo $channelErr; ?></span><br><br>
+
+            <label for="imgLink">Image URL:</label>
+            <input type="url" id="imgLink" name="imgLink">
+            <span style="color: red;"><?php echo $channelErr; ?></span><br><br>
+
         </fieldset>
         <input type="submit" value="Update Info">
     </form>

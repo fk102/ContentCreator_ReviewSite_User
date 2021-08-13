@@ -6,19 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creators</title>
-</head>
-<nav>
-    <h1 id="logo">YTTV</h1>
-    <ul>
-        <li><a href="/webtech/userhomepage.html">Home</a></li>
-        <li><a href="/webtech/creators2.php">Creators</a></li>
-        <li><a href="/webtech/favourites.php/">My Favorites</a></li>
-        <li> <a href="/webtech/logout.php">Logout</a></li>
-        <li> <a href="/webtech/userprofile.php">View Profile</a></li>
+    <link rel="stylesheet" href="./css/creators.css">
 
-    </ul>
-</nav>
-<h1>Creators</h1>
+</head>
+<?php
+require '../model/dbCreatorRead.php';
+
+if (isset($_COOKIE['uid'])) {
+    include 'nav.html';
+} else {
+    include 'newNav.html';
+} ?>
+<div class="top-content">
+    <h1>Creators</h1>
+</div>
+
 
 <?php
 define("filepath", "creators.json");
@@ -48,18 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $Name = test_input($Name);
 
 
-        $fileData = read();
-
-        $data = json_decode($fileData, true);
-
-        foreach ($data as  $id => $userdata) {
-
-            if ($Name == $data[$id]["name"]) {
-                $found = true;
-                break;
-            }
-        }
+        $found = true;
     }
+
     if ($found) {
         $successfulMessage = "Success";
         if (isset($_POST['Name'])) {
@@ -72,38 +65,38 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $errorMessage = "Invalid Credentials";
     }
 }
-
-$fileData = read();
-
-$data = json_decode($fileData, true);
-
-foreach ($data as  $id => $userdata) {
-    $link = $data[$id]["channelLink"];
-    $name =  $data[$id]["name"];
-    echo "<br><form action=creators2.php method=POST>";
-    echo "Name: <input type=submit name=Name value=$name>";
-    echo "</form><br>";
-    echo "<a href=$link>Go to Channel</a>";
-    echo "<br><br>";
-}
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
 ?>
 
-
-
-
 <body>
+
+    <?php
+
+    getCreatorInfo();
+    function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
+    ?>
+
+
     <br><br>
-    <input type=button onClick=location.href="/webtech/creatorform.php" value="Add Creator"></input><br><br>
+    <input type=button onClick=location.href="./creatorform.php" value="Add Creator"></input><br><br>
     <span style="color: green;"><?php echo $successfulMessage; ?></span>
     <span style="color: red;"><?php echo $errorMessage; ?></span>
+    <style>
+        input[type="button"] {
+            background-color: #7f2fff;
+            position: relative;
+            width: 120px;
+            height: 50px;
+            left: 8.5rem;
+            margin: 1rem;
+        }
+    </style>
     <?php
 
     function read()

@@ -1,0 +1,11 @@
+ echo "<div class=grid-container>";
+        echo "<div class=$item>
+                <img src=$row[img] alt=image of creator>";
+        echo "<br>
+        <form action=creators2.php method=POST>";
+        echo "<input type=submit name=Name value=$row[name]>";
+        echo "</form><br>";
+        echo "<a href=$row[channelLink] class=links>Go to Channel</a></div></div>";
+        echo "<br><br>
+       
+        ";

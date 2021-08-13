@@ -4,15 +4,16 @@
 <head>
     <meta charset="utf-8">
     <title>Add creators</title>
+    <?php require '../model/dbCreatorInsert.php' ?>
 </head>
 
 <body>
+    <?php require 'nav.html' ?>
     <h1> Add Creator </h1>
 
     <?php
     define("filepath", "creators.json");
-
-    $Name = $rating = $channelLink = $rating = $review = "";
+    $Name = $rating = $channelLink = $rating = $review = $imgLink = "";
     $NameErr = $ratingErr = $channelErr = $ratingErr = $dobErr = "";
     $successfulMessage = $errorMessage = "";
     $flag = false;
@@ -21,6 +22,7 @@
         $Name = $_POST['name'];
         $dob = $_POST['dob'];
         $channelLink = $_POST['channelLink'];
+        $imgLink = $_POST['imgLink'];
         $rating = $_POST['rating'];
         $review = $_POST['review'];
 
@@ -49,22 +51,30 @@
             $Name = test_input($Name);
             $dob = test_input($dob);
             $channelLink = test_input($channelLink);
+            $imgLink = test_input($imgLink);
             $review = test_input($review);
             $rating = test_input($rating);
 
             $fileData = read();
             if (empty($fileData)) {
-                $data[] = array("name" => $Name, "dob" => $dob, "channelLink" => $channelLink, "rating" => $rating, "review" => $review, "favourites" => "");
+                $data[] = array("name" => $Name, "channelLink" => $channelLink);
             } else {
                 $data = json_decode($fileData);
-                array_push($data, array("name" => $Name, "dob" => $dob, "channelLink" => $channelLink, "rating" => $rating, "review" => $review));
+                array_push($data, array("name" => $Name, "channelLink" => $channelLink, "img" => $imgLink));
             }
             $data_encode = json_encode($data, JSON_PRETTY_PRINT);
             write("");
-            $result1 = write($data_encode);
+            $result = write($data_encode);
+            if ($result) {
+                $successfulMessage = "FILE Successfully saved.";
+            } else {
+                $errorMessage = "Error while saving FILE.";
+            }
+
+            $result1 = register($Name, $dob, $channelLink, $rating, $review, $imgLink);
             if ($result1) {
                 $successfulMessage = "Successfully saved.";
-                header("Location:/webtech/creators2.php");
+                header("Location:./creators2.php");
             } else {
                 $errorMessage = "Error while saving.";
             }
@@ -102,6 +112,10 @@
 
             <label for="channelLink">Channel Link:</label>
             <input type="url" id="channelLink" name="channelLink">
+            <span style="color: red;"><?php echo $channelErr; ?></span><br><br>
+
+            <label for="imgLink">Image URL:</label>
+            <input type="url" id="imgLink" name="imgLink">
             <span style="color: red;"><?php echo $channelErr; ?></span><br><br>
 
             <label>Rating</label>
