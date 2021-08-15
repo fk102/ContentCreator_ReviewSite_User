@@ -12,10 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $lastName = $_POST['lastname'];
     $gender = $_POST['gender'];
     $dob = $_POST['dob'];
-
-
     $email = $_POST['email'];
-
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -61,10 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $result1 = register($firstName, $lastName, $gender, $dob, $email, $username, $password);
         if ($result1) {
             $successfulMessage = "Successfully saved.";
-            header('Location:../view/login.php');
+            //header('Location:../view/login.php');
+            echo $successfulMessage;
         } else {
             $errorMessage = "Error while saving.";
+            echo $errorMessage;
         }
+    } else {
+        echo "ERROR";
     }
 }
 

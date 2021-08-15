@@ -1,20 +1,20 @@
-function isValid() {
+function isValid(uForm) {
     var flag = true;
-    var firstNameErr = document.getElementById("firstNameErr");
-    var lastNameErr = document.getElementById("lastNameErr");
-    var genderErr = document.getElementById("genderErr");
-    var dobErr = document.getElementById("dobErr");
-    var emailErr = document.getElementById("emailErr");
-    var usernameErr = document.getElementById("usernameErr");
-    var passwordErr = document.getElementById("passwordErr");
+    var firstNameErr = getElementById("firstNameErr");
+    var lastNameErr = getElementById("lastNameErr");
+    var genderErr = getElementById("genderErr");
+    var dobErr = getElementById("dobErr");
+    var emailErr = getElementById("emailErr");
+    var usernameErr = getElementById("usernameErr");
+    var passwordErr = getElementById("passwordErr");
 
-    var firstName = document.forms["registrationForm"]["firstname"].value;
-    var lastName = document.forms["registrationForm"]["lastname"].value;
-    var gender = document.forms["registrationForm"]["gender"].value;
-    var dob = document.forms["registrationForm"]["dob"].value;
-    var email = document.forms["registrationForm"]["email"].value;
-    var username = document.forms["registrationForm"]["username"].value;
-    var password = document.forms["registrationForm"]["password"].value;
+    var firstname = uForm.firstname.value;
+    var lastname = uForm.lastname.value;
+    var gender = uForm.gender.value;
+    var dob = uForm.dob.value;
+    var email = uForm.email.value;
+    var username = uForm.username.value;
+    var password = uForm.password.value;
 
     firstNameErr.innerHTML = "";
     lastNameErr.innerHTML = "";
@@ -24,11 +24,11 @@ function isValid() {
     usernameErr.innerHTML = "";
     passwordErr.innerHTML = "";
 
-    if (firstName === "") {
+    if (firstname === "") {
         firstNameErr.innerHtml = "First name can not be empty!";
         flag = false;
     }
-    if ($lastName === "") {
+    if (lastname === "") {
         lastNameErr.innerHtml = "Last name can not be empty!";
         flag = false;
     }
@@ -61,9 +61,10 @@ function submitForm(uForm){
     if(valid){
         var xhttp=new XMLHttpRequest();
         xhttp.onload=function(){
-        xhttp.open("POST","UserAction.php");
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("firstname="+uForm.firstname.value,"lastname="+uForm.lastname.value,"gender="+uForm.gender.value,"dob="+uForm.dob.value,"email="+uForm.email.value,"username="+uForm.username.value,"password="+uForm.password.value);
+            if(this.status===200){getElementById("message").innerHTML=this.responseText;}
         }
+        xhttp.open("POST","../controller/UserAction.php",true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("firstname="+uForm.firstname.value+"&lastname="+uForm.lastname.value+"&gender="+uForm.gender.value+"&dob="+uForm.dob.value+"&email="+uForm.email.value+"&username="+uForm.username.value+"&password="+uForm.password.value);
     }
 }

@@ -22,7 +22,7 @@
     $flag = false;
 
     ?>
-    <form action="../controller/creatorAction.php" method="POST" name="creatorForm" onsubmit="return submitForm(this)">
+    <form action="../controller/creatorAction.php" method="POST" name="creatorForm" onsubmit="submitForm(this); return false;">
         <fieldset>
             <legend>Add a creator:</legend>
             <label for="cname">Name:</label>
