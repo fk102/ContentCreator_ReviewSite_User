@@ -12,7 +12,7 @@
     <h1> Add Creator </h1>
 
     <?php
-    define("filepath", "creators.json");
+
     $Name = $rating = $channelLink = $rating = $review = $imgLink = "";
     $NameErr = $ratingErr = $channelErr = $ratingErr = $dobErr = "";
     $successfulMessage = $errorMessage = "";
@@ -55,22 +55,6 @@
             $review = test_input($review);
             $rating = test_input($rating);
 
-            $fileData = read();
-            if (empty($fileData)) {
-                $data[] = array("name" => $Name, "channelLink" => $channelLink);
-            } else {
-                $data = json_decode($fileData);
-                array_push($data, array("name" => $Name, "channelLink" => $channelLink, "img" => $imgLink));
-            }
-            $data_encode = json_encode($data, JSON_PRETTY_PRINT);
-            write("");
-            $result = write($data_encode);
-            if ($result) {
-                $successfulMessage = "FILE Successfully saved.";
-            } else {
-                $errorMessage = "Error while saving FILE.";
-            }
-
             $result1 = register($Name, $dob, $channelLink, $rating, $review, $imgLink);
             if ($result1) {
                 $successfulMessage = "Successfully saved.";
@@ -79,14 +63,6 @@
                 $errorMessage = "Error while saving.";
             }
         }
-    }
-
-    function write($content)
-    {
-        $resource = fopen(filepath, "w");
-        $fw = fwrite($resource, $content . "\n");
-        fclose($resource);
-        return $fw;
     }
 
     function test_input($data)

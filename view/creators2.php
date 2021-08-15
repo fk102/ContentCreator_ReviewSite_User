@@ -31,6 +31,7 @@ $successfulMessage = $favMessage = $errorMessage = "";
 $flag = $flag2 = $found = false;
 $uid = "";
 $Name = '';
+
 if (isset($_COOKIE['creator'])) {
     $uid = $_COOKIE['creator'];
 }
@@ -48,8 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     if (!$flag) {
         $Name = test_input($Name);
-
-
         $found = true;
     }
 
