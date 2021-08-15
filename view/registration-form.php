@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <?php
-    require '../model/dbInsert.php';
+    //require '../model/dbInsert.php';
     $firstName = $lastName = $gender = $dob = $email = $username = $password = "";
     $firstNameErr = $lastNameErr = $genderErr = $dobErr = $emailErr = $usernameErr = $passwordErr = "";
     $successfulMessage = $errorMessage = "";
