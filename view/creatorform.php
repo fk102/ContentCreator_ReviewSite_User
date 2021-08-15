@@ -16,7 +16,7 @@
     <?php
 
     $Name = $rating = $channelLink  = $review = $imgLink = "";
-    $rating = "one";
+    $rating = "";
     $NameErr = $ratingErr = $channelErr = $reviewErr = $dobErr = $imgErr = "";
     $successfulMessage = $errorMessage = "";
     $flag = false;

@@ -31,8 +31,8 @@
         $Name = $uid;
     ?>
         <h1 id="creator"><?php echo $Name ?></h1>
-
     <?php
+
 
 
         getCreator($Name);
