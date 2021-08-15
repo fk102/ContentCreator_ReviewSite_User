@@ -17,8 +17,6 @@
     ?>
     <h1> Add Creator </h1>
 
-
-
     <form action="../controller/addReviewAction.php" method="POST" name="reviewForm" onsubmit="return isValid()">
         <fieldset>
             <legend></legend>
